@@ -21,8 +21,8 @@ I noticed the following were frequent topics that either led to insightful discu
 
 - When to compartmentalize functionality in classes or outside classes
   (e.g., if the collision detection functionality should be defined in the `DinoAvatar`
-  class or as a stand-alone function in the `main.py` file)
-- `pygame`'s coordinate system places the origin `(0,0)` at the top-left corner
+  class or as a stand-alone function in the `main.py` file).
+- `pygame`'s coordinate system places the origin `(0,0)` at the top-left corner.
 - Reading code is tougher than writing code! Documentation, commenting, and journaling helps!
 
 ## What Now?
@@ -35,7 +35,7 @@ work:
   - Prolonging jumping (high jumps and low jumps)
   - Ducking in mid-air stopping the jump
 - Adding a leaderboard (to learn about serialization and JSON)
-- Adding `C H A O S      M O D E` (to improve general Python programming and game development skills)
+- Adding `C H A O S `    ` M O D E` (to improve general Python programming and game development skills)
   - Inverting the game screen
   - Inverting keyboard commands
   - Inverting obstacle-generation logic (floating cacti, walking bird)
