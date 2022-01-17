@@ -35,7 +35,7 @@ work:
   - Prolonging jumping (high jumps and low jumps)
   - Ducking in mid-air stopping the jump
 - Adding a leaderboard (to learn about serialization and JSON)
-- Adding `C H A O S  &nbsp; M O D E` (to improve general Python programming and game development skills)
+- Adding `C H A O S \t M O D E` (to improve general Python programming and game development skills)
   - Inverting the game screen
   - Inverting keyboard commands
   - Inverting obstacle-generation logic (floating cacti, walking bird)
