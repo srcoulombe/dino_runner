@@ -23,6 +23,7 @@ class DinoAvatar(GameElement):
 
         self.debug_mode = debug_mode 
 
+        # positional parameters
         self.rect.x = 80
         self.rect.y = 310
         self.x_position = 80
@@ -34,15 +35,18 @@ class DinoAvatar(GameElement):
         self.ducking_images = ducking_images
         self.jumping_images = jumping_images
 
+        # some booleans used to record the dinosaur's state
         self.is_running = True
         self.is_ducking = False 
         self.is_jumping = False
         self.can_jump = False
 
+        # counter used to flip between images
         self.step_index = 0
 
+        # defining points-of-interest for collision detection
         self.front_point = [self.rect.x + 45, self.rect.y + 5]
-        self.front_point_when_crouching = (self.rect.x + 105, self.rect.y + 40)
+        self.front_point_when_ducking = (self.rect.x + 105, self.rect.y + 40)
         self.bottom_point = [self.rect.x + 10, self.rect.y + 70]
         self.tail_point = [self.rect.x, self.rect.y + 50]
 
@@ -55,6 +59,7 @@ class DinoAvatar(GameElement):
             self.image, 
             (self.rect.x, self.rect.y)
         )
+        # displays the collision points; useful for running tests
         if self.debug_mode:
             colors = (
                 (0,0,255), # blue = front
@@ -62,19 +67,25 @@ class DinoAvatar(GameElement):
                 (0,255,0), # green = bottom
                 (0,0,0) # black = tail
             )
-            points = (self.front_point, self.front_point_when_crouching, self.bottom_point, self.tail_point)
+            points = (self.front_point, self.front_point_when_ducking, self.bottom_point, self.tail_point)
             for point, color in zip(points, colors):
                 pygame.draw.circle(screen, color, point, 10)
 
     def duck(self):
+        # change `image`
         self.image = self.ducking_images[(self.update_step_index() // 5) % len(self.ducking_images)]
+        # update rect attribute (which depends on self.image); could make this a property
         self.rect = self.image.get_rect()
+        # update `rect`
         self.rect.x = self.x_position
         self.rect.y = self.y_position_when_ducking
-        self.front_point_when_crouching = (self.rect.x + 105, 310 + 40)
+        # ducking brings the snout further to the right and the head closer to the ground;
+        # make those updates
+        self.front_point_when_ducking = (self.rect.x + 105, 310 + 40)
         self.is_ducking = True
 
     def run(self):
+        # change `image`
         self.image = self.running_images[(self.update_step_index() // 5) % len(self.running_images)]
         self.rect = self.image.get_rect()
         self.rect.x = self.x_position
@@ -83,8 +94,10 @@ class DinoAvatar(GameElement):
         self.is_running = True
     
     def jump(self):
+        # change `image`
         self.image = self.jumping_images[(self.update_step_index() // 5) % len(self.jumping_images)]
         if self.is_jumping:
+            # disable continuous jumping
             self.can_jump = False
             self.rect.y -= self.jump_velocity * 4
             self.front_point[1] -= self.jump_velocity * 4
@@ -125,25 +138,44 @@ class DinoAvatar(GameElement):
             self.is_jumping = False
 
     def collides_with(self, rect: pygame.Rect) -> bool:
+        """Returns a boolean indicating whether the `DinoAvatar`
+        instance's points-of-interest are colliding with 
+        `rect` or not.
+
+        Parameters
+        ----------
+        rect : pygame.Rect
+            pygame.Rect attribute of any obstacle
+
+        Returns
+        -------
+        bool
+            Boolean indicating whether the `DinoAvatar`
+            instance's points-of-interest are colliding with 
+            `rect` or not
+        """
         if self.is_ducking:
             is_colliding = rect.collidepoint(self.bottom_point) \
-                or rect.collidepoint(self.front_point_when_crouching)
-            if is_colliding:
-                print("A")
-                print(self.front_point_when_crouching)
-                print(self.front_point)
-                print(dir(rect))
+                or rect.collidepoint(self.front_point_when_ducking)
+            # the next if-block was useful in debugging
+            # if is_colliding:
+            #     print("A")
+            #     print(self.front_point_when_ducking)
+            #     print(self.front_point)
+            #     print(dir(rect))
             return is_colliding
         elif self.is_jumping:
             is_colliding = rect.collidepoint(self.bottom_point) \
                 or rect.collidepoint(self.front_point) \
                 or rect.collidepoint(self.tail_point)
-            if is_colliding:
-                print("B")
+            # the next if-block was useful in debugging
+            # if is_colliding:
+            #     print("B")
             return is_colliding
         else:
             is_colliding = rect.collidepoint(self.front_point)
-            if is_colliding:
-                print("C")
+            # the next if-block was useful in debugging
+            # if is_colliding:
+            #     print("C")
             return is_colliding
 
