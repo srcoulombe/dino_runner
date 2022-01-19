@@ -12,6 +12,9 @@ Made with `pygame` (and some nostalgia :relaxed:)
 5. Install `pygame` (you'll need this to run the game) in your virtual environment by using `pip install pygame`. Alternatively, you can use `pip install -r requirements.txt`.
 6. You can now run the game by entering the following in your command line: `python3 main.py` (or `python main.py`).
 
+# Demo
+![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+
 # Extending this Codebase
 Feel free to fork this repo if you'd like to use this codebase as a starting point!
 
