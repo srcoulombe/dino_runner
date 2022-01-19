@@ -13,7 +13,7 @@ Made with `pygame` (and some nostalgia :relaxed:)
 6. You can now run the game by entering the following in your command line: `python3 main.py` (or `python main.py`).
 
 # Demo
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Demo](https://github.com/srcoulombe/dino_runner/blob/main/demo.gif?raw=true)
 
 # Extending this Codebase
 Feel free to fork this repo if you'd like to use this codebase as a starting point!
